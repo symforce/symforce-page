@@ -1,0 +1,58 @@
+
+{% macro login(sumbit_id) %}
+    {% set admin = app_admin("app_user") %}
+    {% set form = admin.getLoginForm(null, {}, false ) %}
+    {% set view = form.createView() %}
+    <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal" id="embed_login_form" >
+        {{ form_widget(view) }}
+    </form>
+    <script type="text/javascript">
+        $(function() {
+            var form = $('#embed_login_form');
+            var validator = new FormValidator(form, {
+                'url': '{{ path('fos_user_security_login') }}',
+                'elements': 'form'
+            });
+            var on_handling = false;
+            var errors = {{ admin.getLoginErrors() |json_encode|raw }};
+            var captcha = form.find('.captcha_image');
+            var captcha_url = captcha.attr('src');
+
+            var on_submit = Klass.delay(function() {
+                if (on_handling) {
+                    return;
+                }
+                _.each(validator.children, function(child, i) {
+                    child.setError(null);
+                }, this);
+                on_handling = true;
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function(o) {
+                        on_handling = false;
+                        if (o.ok) {
+                            $("#{{ sumbit_id }}").trigger('login_success');
+                        } else {
+                            var error = o.message;
+                            if (errors.hasOwnProperty(o.error)) {
+                                error = errors[o.error];
+                            }
+                            validator.setError(o.type, error);
+                            // console.log(o);
+                            captcha.attr('src', captcha_url + '?n=' + (new Date()).getTime());
+                        }
+                    }
+                });
+            }, form, 100);
+
+            {% if sumbit_id %}
+            $("#{{ sumbit_id }}").on('click', function(evt) {
+                evt.stopPropagation();
+                on_submit();
+            });
+            {% endif %}
+        });
+    </script>
+{% endmacro %}

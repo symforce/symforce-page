@@ -1,0 +1,39 @@
+{% set profile_menu ="edit" %}
+{% extends "AppWebBundle:Profile:profile_layout.html.twig" %}
+
+
+{% set profile_breadcrumb = [
+        {"text":"修改个人资料" , "current":1, "href":path('fos_user_profile_edit') }
+    ] %}
+
+{% block profile_right %}
+   
+{% trans_default_domain 'FOSUserBundle' %}
+<style>
+    .form-horizontal input[type="text"],.form-horizontal input[type="password"]{
+        width:50% !important;
+    }
+    .form-horizontal select{
+        width:15%;
+    }
+</style>
+
+<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST"  class="form-horizontal" id="edit_form">
+    {{ form_widget(form) }}
+
+    <div class="form-group">
+        <div class="col-xs-offset-3 col-xs-9">
+            <button type="submit" class="btn btn-primary">{{ 'profile.edit.submit'|trans }}</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+$(function(){
+    new FormValidator('#edit_form',{
+        'skip': '#form_old_password'
+    });
+});
+</script>
+
+{% endblock  profile_right%}

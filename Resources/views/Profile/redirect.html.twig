@@ -1,0 +1,9 @@
+
+<a href="{{ url }}">{{ url }}</a>
+
+<script type="text/javascript">
+    setTimeout(function(){
+        window.location = {{ url | json_encode | raw }};
+    }, {{ delay * 1000 }});
+    
+</script>

@@ -1,0 +1,58 @@
+
+<div class="top_bar">
+    <div class="app_box">
+        <ul class="app_menu">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                    </a>
+                </li>
+                {% set nb_unread_message = fos_message_nb_unread() %}
+                {% if nb_unread_message > 0 %}
+                    <li>
+                        <a href="{{ path('message_inbox') }}" style='color: orange !important'>
+                            {{ nb_unread_message }}条新消息
+                        </a>
+                    </li>
+                {% endif %}
+                <li>{{ 'layout.logged_in_as'|trans({'%username%': "<a href='" ~ path('fos_user_profile_show') ~"'>" ~ app.user.username ~ "</a>" }, 'FOSUserBundle') | raw }} </li>
+
+            {% else %}
+                <li><a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+                <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+            {% endif %}
+            {#
+             <li class="dropdown_li"><a href="#">个人中心 <b class="caret"></b></a>
+               <ul class="dropdown_ul">
+                 <li><a href="#">个人中心</a></li>
+                 <li><a href="#">个人中心</a></li>
+                 <li><a href="#">个人中心</a></li>
+               </ul>
+             </li>
+            <li>你好, <a href="#">Username</a></li>
+            #}
+        </ul>
+    </div>
+</div>
+
+<div class="top_box">
+    <div class="app_box">
+        <a href="/">
+            <div id="app_logo">
+                {#                            <h3><a href="/">{{ 'app.admin.brand' | trans({}, app_domain) }}</a></h3>#}
+            </div>
+        </a>
+
+        {#<ul class="app_menu">
+            <li><a href="{{ app_path('trust:index') }}">信托产品</a></li>
+            <li><a href="{{ app_path('project:index') }}">我要投资</a></li>
+
+            <li id="home"><a href="/">首页</a></li>
+        </ul>#}
+
+        <div  class="app_menu">
+            {{ app_menu('header-nav') }}
+        </div>
+    </div>
+</div>

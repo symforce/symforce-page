@@ -1,0 +1,330 @@
+{% extends "AppWebBundle::page_layout.html.twig" %}
+{% import _self as profile_layout %}
+{% set page_body_id = 'app_profile_body' %}
+{% set profile_breadcrumb = profile_breadcrumb is defined ? profile_breadcrumb : false %}
+{% set app_content_menu  = true  %}
+{% set app_content_menu_left = 1 %}
+{% set app_content_menu_width = 4 %}
+{% set profile_menu = profile_menu is defined ? profile_menu : "info" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block app_content_menu_block %}
+    {% block profile_left %}
+    <p class="profile_hi">Hi, {{ app.user.username }}</p>
+
+    <dl class="profile_left_block">
+        <dt>我的投资</dt>
+        <dd{% if profile_menu =="statistics" %} class="current"{% endif %}><a href="{{ path('my_statistics') }}"><i class="fa fa-money"></i>投资统计</a></dd>
+        <dd{% if profile_menu =="my_project" %} class="current"{% endif %}><a href="{{ path("my_projects") }}"><i class="fa fa-beer"></i>我发起的项目</a></dd>
+        <dd{% if profile_menu =="my_invest" %} class="current"{% endif %}><a href="{{ path("my_invests") }}"><i class="fa fa-bars"></i>我投资的项目</a></dd>
+        <dd{% if profile_menu =="msg_inbox" %} class="current"{% endif %}>
+            <a href="{{ path("message_inbox") }}"><i class="fa fa-envelope"></i>消息{% if nb_unread_message > 0%} ({{ nb_unread_message }}){% endif %}</a>
+        </dd>
+    </dl>
+    
+    
+    <dl class="profile_left_block">
+        <dt>我的账户</dt>
+        <dd{% if profile_menu =="info" %} class="current"{% endif %}><a href="{{ path("fos_user_profile_show") }}"><i class="fa fa-user"></i>账户信息</a></dd>
+        <dd{% if profile_menu =="edit" %} class="current"{% endif %}><a href="{{ path("fos_user_profile_edit") }}"><i class="fa fa-edit"></i>修改资料</a></dd>
+        <dd{% if profile_menu =="pass" %} class="current"{% endif %}><a href="{{ path("fos_user_change_password") }}"><i class="fa fa-unlock"></i>登录信息</a></dd>
+        <dd{% if profile_menu =="bank" %} class="current"{% endif %}><a href="{{ path("user_bank_list") }}"><i class="fa fa-credit-card"></i>银行卡</a></dd>
+       
+    </dl>
+
+    {% endblock  profile_left %}
+{% endblock %}
+
+{% block profile_title %}
+    {% if profile_breadcrumb %}
+        {% spaceless %}
+        <div class="app_breadcrumb">
+            <ul>
+            {% for it in profile_breadcrumb|reverse %}
+                {% if not(it is iterable) %} {% set it = {"text":it} %} {% endif %}
+                <li class="{% if it.current is defined and it.current %}current{% endif %}">
+                    <a {% if it.href is defined %}href="{{ it.href }}"{% endif %}>
+                        {% if it.icon is defined %}<i class="fa fa-{{ it.icon }}"></i>{% endif %}
+                        {{ it.text }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endspaceless %}
+    {% endif %}
+{% endblock %}
+
+{% block app_content_page %}
+    <div class="app_profile_content">
+        <div id="app_profile_breadcrumb">
+            {{ block('profile_title') }}
+        </div>
+        {#
+        <div class="app-title">
+            <h2>{% block profile_title %}账户总览{% endblock %}</h2>
+            <div class="r">
+                {% block profile_title_desc %}您的账户信息{% endblock %}
+            </div>
+            <b class="line"></b>
+        </div>
+        #}
+
+        {% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+        {% block flashes %}
+            {% if app.session.flashbag.peekAll|length > 0 %}
+        <div class="row">
+            <div class="col-xs-12">
+                 {{ session_flash(true, true) }}
+            </div>
+        </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block profile_right %}
+            
+        {% endblock  profile_right%}
+    </div>
+{% endblock  %}
+
+
+{% macro trust_info(trust) %}
+
+    {% import "trust.admin.html.twig" as trust_macro %}
+
+{#<div class='col-app-24 InfoTitle'>
+    <a target="_blank" href="{{ app_path('view', trust) }}">{{ trust }}</a>
+</div>#}
+
+    {% set col_width=6 %}
+<div class='col-app-{{ col_width }}'>
+    <label>发型机构:</label>
+    <p>{{ trust.company }}</p>
+</div>
+<div class='col-app-{{ col_width }}'>
+    <label>投资规模:</label>
+    <p>{{ trust_macro.macro_value_trust_scale(trust) }}</p>
+</div>
+<div class='col-app-{{ col_width }}'>
+    <label>投资门槛:</label>
+    <p>{{ trust_macro.macro_value_trust_limit(trust) }}</p>
+</div>
+<div class='col-app-{{ col_width }}'>
+    <label>收益方式:</label>
+    <p>{{ trust_macro.macro_value_interest_type(trust) }}</p>
+</div>
+<div class='col-app-{{ col_width }}'>
+    <label>收益方式:</label>
+    <p>{{ trust_macro.macro_value_interest_type(trust) }}</p>
+</div>
+
+<div class='col-app-{{ col_width }}'>
+    <label>预期年化利率：</label>
+    <p>{{ trust_macro.macro_value_expected_revenue(trust) }}</p>
+</div>
+
+<div class='col-app-{{ col_width }}'>
+    <label>收益起始日:</label>
+    <p>{{ trust_macro.macro_value_profit_start_date(trust) }}</p>
+</div>
+<div class='col-app-{{ col_width }}'>
+    <label>收益结束日:</label>
+    <p>{{ trust_macro.macro_value_profit_stop_date(trust) }}</p>
+</div>
+{% endmacro  %}
+
+
+{% macro project_info(project) %}
+    {% import "project.admin.html.twig" as project_macro %}
+    {% set admin    = app_admin('project') %}
+    {% set project_status = admin.getObjectWorkflowStatus(project).name %}
+    {% set percentage_progress  = project.invest_total_percent %}
+    {% set col_width=6 %}
+{#
+<div class='col-app-24 InfoTitle'>
+    {% if 'published' == project_status or 'endlife' == project_status %}
+        <a target="_blank" href="{{ app_path('view', project) }}">{{ project }}</a>
+    {% else %}
+        {{ project }}
+    {% endif %}
+</div>
+#}
+
+<div class='col-app-{{ col_width }}'>
+    <label>创建人:</label>
+    <p>{{ project.user }}</p>
+</div>
+
+<div class='col-app-{{ col_width }}'>
+    <label>预约付款开始:</label>
+    <p>{{ project_macro.macro_value_pay_start_time(project) }}</p>
+</div>
+<div class='col-app-{{ col_width }}'>
+    <label>预约付款结束:</label>
+    <p>{{ project_macro.macro_value_pay_stop_time(project) }}</p>
+</div>
+    
+<div class='col-app-{{ col_width }}'>
+    <label>状态:</label>
+    <p>
+        {{ project_macro.macro_value_status(project) }}
+    </p>
+</div>
+    
+<div class='col-app-{{ col_width }}'>
+    <label>投资规模</label>
+    <p>{{ project_macro.macro_value_money(project) }}</p>
+</div>
+
+{% if project_status  in ['published', 'ready', 'endlife' ] %}
+<div class='col-app-{{ col_width }}'>
+    <label>进度:</label>
+    <p>
+        {{ percentage_progress  }}%
+    </p>
+</div>
+    
+<div class='col-app-{{ col_width }}'>
+    <label>预约金额:</label>
+    <p>
+        {{ app_money(project.invest_total_money)  }}
+    </p>
+</div>
+<div class='col-app-{{ col_width }}'>
+    <label>到账金额:</label>
+    <p>
+        {{ app_money( project.invest_real_money )  }}
+    </p>
+</div>
+{% endif %}
+
+{% endmacro  %}
+
+    
+{% macro invest_info(invest, from_owner = false ) %}
+    {% import "project.admin.html.twig" as project_macro %}
+    {% import "invest.admin.html.twig" as invest_macro %}
+    {% set project_admin    = app_admin('project') %}
+    {% set admin    = app_admin('invest') %}
+    {% set invest_status = admin.getObjectWorkflowStatus(invest).name %}
+    {% set col_width=6 %}
+ 
+<div class='col-app-{{ col_width }}'>
+    <label>预约人:</label>
+    <p>
+        {{ invest.user }}
+    </p>
+</div>
+    
+<div class='col-app-{{ col_width }}'>
+    <label>联系电话:</label>
+    <p>
+        {{ invest.user.mobile_phone_number }}
+    </p>
+</div>
+    
+<div class='col-app-{{ col_width }}'>
+    <label>预约日期:</label>
+    <p>
+        {{ invest_macro.macro_value_updated(invest) }}
+    </p>
+</div>
+    
+<div class='col-app-{{ col_width }}'>
+    <label>投资状态:</label>
+    <p>
+        {{ invest_macro.macro_value_status(invest) }}
+    </p>
+</div>
+    
+<div class='col-app-{{ col_width }}'>
+    <label>预约金额:</label>
+    <p>
+        {{ app_money(invest.money)  }}
+    </p>
+</div>
+    
+{% endmacro  %}
+    
+    
+{% macro invest_money_info(invest, from_owner = false ) %}
+    {% import "project.admin.html.twig" as project_macro %}
+    {% import "invest.admin.html.twig" as invest_macro %}
+    {% set project_admin    = app_admin('project') %}
+    {% set admin    = app_admin('invest') %}
+    {% set invest_status = admin.getObjectWorkflowStatus(invest).name %}
+    {% set col_width=6 %}
+    
+    <div class='col-app-{{ col_width }}'>
+        <label>实际支付金额:</label>
+        <p>
+            {{ invest_macro.macro_value_pay_money(invest) }}
+        </p>
+    </div>
+
+    <div class='col-app-{{ col_width }}'>
+        <label>付款日期:</label>
+        <p>
+            {{ invest_macro.macro_value_date_of_payment(invest) }}
+        </p>
+    </div>
+    <div class='col-app-24'>
+        <label>支付证明:</label>
+        <p>
+            {% if invest.proof_of_payment %}
+                {{ invest_macro.macro_value_proof_of_payment(invest) }}
+            {% else %}
+                未上传
+            {% endif %}
+        </p>
+    </div>
+    
+   {% if invest.content %}
+    <div class='col-app-24'>
+        <label>付款备注:</label>
+        <p>
+                {{ invest_macro.macro_value_content(invest) }}
+        </p>
+    </div>
+   {% endif %}
+    
+{% endmacro  %}
+    
+{% macro project_action(project) %}
+    {% set admin    = app_admin('project') %}
+    {% set status = admin.getObjectWorkflowStatus(project).name %}
+    {% if status in ["needmodify", 'apply' ] %}
+        <a href="{{ path('my_project_update',{project_id:project.id}) }}">更改项目信息</a>
+    {% endif %}
+{% endmacro  %}
+
+{% macro invest_action(invest, status) %}
+    {% set project_admin    = app_admin('project') %}
+    {% set admin    = app_admin('invest') %}
+    {# set status = admin.getObjectWorkflowStatus(invest).name #}
+    <a href="{{ path('my_project_invest_view',{"project_id": invest.project.id, 'invest_id': invest.id } )}}">明细</a>
+    {#
+    {% if status == 'apply' %}
+         <a href="{{ path('my_project_invest_approve',{"project_id": invest.project.id, 'invest_id': invest.id } )}}">批准</a> 
+        
+    {% endif %}
+    {% if status in ["accepted", 'nomoney', 'getmoney', 'paymoney' ] %}
+        <a href="{{ path('my_project_invest_confirm_money',{"project_id": invest.project.id, 'invest_id': invest.id } )}}">更改收款状态</a>
+    {% endif %} 
+    #}
+
+{% endmacro  %}
+        
+{% macro myinvest_action(invest, status) %}
+    {% set project_admin    = app_admin('project') %}
+    {% set admin    = app_admin('invest') %}
+    {# set status = admin.getObjectWorkflowStatus(invest).name #}
+    
+    {% if status in [ 'nomoney' , 'accepted' ] %}
+        <a href="{{ path('my_invest_confirm', {'invest_id':invest.id}) }}">确认付款</a>
+    {% endif %}
+
+    {% if status in [ 'paymoney' ] %}
+        <a href="{{ path('my_invest_confirm', {'invest_id':invest.id}) }}">付款信息</a>
+    {% endif %}
+{% endmacro  %}

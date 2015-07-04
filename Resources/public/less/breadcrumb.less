@@ -1,0 +1,123 @@
+.breadcrumb(@font_size:12px, @height: 12px, @color: #3498db, @current_color: #eee, @text_indent: 16px , @radius:3px ) {
+    ul{
+        float:left;
+   
+        li {
+            box-sizing:content-box;
+            display:inline-block;
+            float: right;
+
+            display: block;
+            background: @color ;
+            margin: 0 2px 0 0;
+            .lt-ie9 & {
+                margin: 0 4px 0 0;
+                z-index:0;
+            }
+            padding: 0px @text_indent 0  (@height/2 + @text_indent ) ;
+            line-height:  (@height) ;
+            height: @height;
+
+            text-decoration: none;
+            color: #fff;
+            border:0;
+            position: relative;
+
+            &:after, &:before {
+                height: @height;
+                border-top: @height/2 solid transparent;
+                border-bottom: @height/2 solid transparent;
+                border-left-width: (@height/2 + 2px) ;
+                border-left-style: solid ;
+                border-left-color: @color ;
+                content: " ";
+            }
+            &:before { 
+                    border-left-color: #fff ;
+                    position: absolute; left: 0; top: 0;
+                    z-index: 2; 
+                    margin-left: 0px;
+            }
+            &:after{
+                position: absolute;
+                top: 0;
+                margin-top:0; 
+                left: 100%;
+                z-index:3; 
+            }
+
+            &.current{
+                background: @current_color ;
+            }
+            &.current:after{
+                border-left-color: @current_color ;
+            }
+            &:hover{
+                background: darken(@color, 8%) ;
+            }
+            &.current:hover{
+                background: darken(@current_color, 8%) ;
+            }
+            &:hover:after{
+                border-left-color:  darken(@color, 8%) ;
+            }
+            &.current:hover:after{
+                border-left-color:  darken(@current_color, 8%) ;
+            }
+            .not-ie8 &:first-child{
+                border-top-right-radius: @radius;
+                border-bottom-right-radius: @radius;
+                padding-right: (@height/2 + @text_indent/2 ) ;
+            }
+            .not-ie8 &:last-child {
+                border-top-left-radius: @radius;
+                border-bottom-left-radius: @radius;
+                padding-left: (@height/2 + @text_indent/2 ) ;
+            }
+            .lt-ie9  &.first_child{
+                border-radius: 0 @radius @radius 0;
+                padding-right: (@height/2 + @text_indent/2 ) ;
+            }
+            .lt-ie9  &.last_child{
+                border-radius: @radius 0 0 @radius;
+            }
+            .lt-ie9  &.first_last_child {
+                border-radius:@radius @radius @radius @radius;
+                padding-left: (@height/2 + @text_indent/2 ) ;
+                padding-right: (@height/2 + @text_indent/2 ) ;
+            }
+            .lt-ie9 &.last_child:before,
+            .lt-ie9 &.first_child:after,
+            .lt-ie9 &.first_last_child:before,
+            .lt-ie9 &.first_last_child:after
+            {
+                display:none;
+            }
+            .not-ie8 &:last-child:before , .not-ie8 &:first-child:after{
+                display:none;
+            }
+
+            a {
+                display: block ;
+                color:#000;
+                font-size:@font_size;
+                text-align: center;
+                line-height: 100% ;
+                padding-top: (@height -@font_size)/2 ;
+            }
+            a[href] {
+                cursor: pointer;
+            }
+            a:hover{
+                text-decoration:none;
+            }
+            &.current a{
+                color:#fff;
+            }
+        }
+    }
+}
+
+.app_breadcrumb{
+      .breadcrumb(12px, 28px,  #e2d7c8 ,  #e2d7c8 );
+}

@@ -1,0 +1,9 @@
+
+_app_web:
+    resource: "@AppWebBundle/Controller"
+    type:     annotation
+    
+#_app_web_news:
+#    resource: "@AppWebBundle/Controller/NewsController.php"
+#    type:     annotation
+    

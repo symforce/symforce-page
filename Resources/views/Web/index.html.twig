@@ -1,0 +1,29 @@
+{% extends "AppWebBundle::page_layout.html.twig" %}
+{% set app_content_top  = true  %}
+{% set app_content_menu  = true  %}
+{% set app_content_menu_left  = 0  %}
+{% set app_content_menu_width  = 6  %}
+
+{% block app_content_main %}
+        content main
+{% endblock %}
+
+{% block app_content_menu %}
+    <div style="padding-left:18px">
+        content menu
+    </div>
+{% endblock %}
+
+{% block app_content_top %}
+    <div style="background-image: url({{ page.image }})" class="app_top_banner">
+        <div class="AppRootBox">
+            content top
+        </div>
+    </div>
+{% endblock %}
+
+{% block app_content_bottom %}
+    <div style="padding-bottom:1em;">
+        content bottom
+    </div>
+{% endblock %}

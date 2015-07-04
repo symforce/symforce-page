@@ -1,0 +1,49 @@
+{% extends "AppWebBundle::page_layout.html.twig" %}
+
+{% if page.getContentMenuEnabled() %}
+    {% set app_content_menu  = true  %}
+    {% set app_content_menu_left  = page.getPageContentMenuLeft()  %}
+    {% set app_content_menu_width  = page.getPageContentMenuWidth()  %}
+    
+    {% block app_content_menu %}
+        <div style="padding-left:18px">
+            {{ app_menu( page.getPageContentMenuName() ) }}
+        </div>
+    {% endblock %}
+{% endif %}
+
+
+{% if page.content_top_enabled %}
+    {% set app_content_top  = true  %}
+    
+{% block app_content_top %}
+    <div class="app_page_content_top {{ page.getPageContentTopClass() }}">
+    {% if page.getPageContentTopType() == "html" %}
+       {{ page.getPageContentTopHtml() | raw }}
+    {% else %}
+       {{ page.getPageContentTopTemplate() }}
+    {% endif %}
+    </div>
+{% endblock %}
+{% endif %}
+    
+
+
+{% block app_page_title %}{{ page.title }}, page_id={{ page.id }}{% endblock %}
+{% block app_page_meta_keywords %}{{ page.meta_keywords }}{% endblock %}
+{% block app_page_meta_description %}{{ page.meta_description }}{% endblock %}
+
+{% block app_content_main %}
+
+    slug: {{ page.slug }} <br />
+    content: {{ page.content | raw }}
+
+{% endblock %}
+
+
+
+{% block app_content_bottom %}
+    <div style="padding-bottom:1em;">
+        content bottom
+    </div>
+{% endblock %}

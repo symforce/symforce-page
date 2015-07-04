@@ -1,0 +1,56 @@
+{% extends "AppWebBundle::layout.html.twig" %}
+{% set app_content_menu = app_content_menu is defined ? app_content_menu : false %}
+{% set app_content_top = app_content_top is defined ? app_content_top : false %}
+{% set app_content_bottom = app_content_bottom is defined ? app_content_bottom : false %}
+
+{% if app_content_menu %}
+    {% set app_content_menu_left = app_content_menu_left is defined ? app_content_menu_left : false %}
+    {% set app_content_menu_width = app_content_menu_width is defined ? app_content_menu_width : 5 %}
+    {% set app_content_page_width = 24 - app_content_menu_width %}
+{% else %}
+    {% set app_content_page_width = 24 %}
+{% endif %}
+
+{% block app_page_content %}
+<!-- app_page_content -->
+
+{% if app_content_top %}
+<!-- app_content_top -->
+<div class="col-app-24" id="app_content_top">
+    {{ block('app_content_top') }}
+</div>
+<!-- /app_content_top -->
+{% endif %}
+
+<div class="AppRootBox">
+{% if app_content_menu and app_content_menu_left %}{{ block('app_content_menu_block_wrapper') }}{% endif %}
+
+<!-- app_content_main -->
+<div class="app_content col-app-{{ app_content_page_width }} {% if app_content_menu %}{% if app_content_menu_left %} app_content_right{% else %} app_content_left{%endif%}{%endif%}" id="app_content_main" >
+{% block app_content_main %} {% endblock %}
+</div>
+<!-- /app_content_main -->
+
+{% if app_content_menu and not(app_content_menu_left) %}{{ block('app_content_menu_block_wrapper') }}{% endif %}
+</div>
+
+{% if app_content_bottom %}
+<!-- app_content_bottom -->
+<div class="col-app-24" id="app_content_bottom">
+    {{ block('app_content_bottom') }}
+</div>
+<!-- /app_content_bottom -->
+{% endif %}
+
+<!-- /app_page_content -->
+{% endblock app_page_content %}
+
+{% block app_content_menu_block_wrapper %}
+<!-- app_content_menu -->
+<div class="app_content col-app-{{ app_content_menu_width }} {% if app_content_menu_left %}app_content_menu_left{% else %}app_content_menu_right{%endif%}" id="app_content_menu" >
+    {% block app_content_menu_block %}<div class="app_content_menu_block" >{% block app_content_menu %}{% endblock %}</div>{% endblock %}
+</div>
+<!-- /app_content_menu -->
+{% endblock %}
+
+{% block app_content_top %}{% endblock %}
