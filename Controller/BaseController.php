@@ -14,27 +14,27 @@ abstract class BaseController extends Controller {
      * @return
      */
     protected function getAdminLoader(){
-        return $this->container->get('symforce.admin.loader') ;
+        return $this->container->get('sf.admin.loader') ;
     }
 
     /**
      * @return \AppAdminCache\UseOfFunds\AdminUseOfFunds
      */
     protected function getUseOfFundsAdmin(){
-        return $this->container->get('symforce.admin.loader')->getAdminByName('use_of_funds') ;
+        return $this->container->get('sf.admin.loader')->getAdminByName('use_of_funds') ;
     }
 
     /**
      * @return  \AppAdminCache\Loan\AdminLoan
      */
     protected function getLoanAdmin(){
-        return $this->container->get('symforce.admin.loader')->getAdminByName('loan') ;
+        return $this->container->get('sf.admin.loader')->getAdminByName('loan') ;
     }
     /**
      * @return  \AppAdminCache\AppPage\AdminAppPage
      */
     protected function getPageAdmin(){
-        return $this->container->get('symforce.admin.loader')->getAdminByName('app_page') ;
+        return $this->container->get('sf.admin.loader')->getAdminByName('app_page') ;
     }
 
     /**
