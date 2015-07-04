@@ -1,6 +1,6 @@
 <?php
 
-namespace App\WebBundle;
+namespace Symforce\PageBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\WebBundle\Controller;
+namespace Symforce\PageBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +30,7 @@ class LoanController extends BaseController {
 
         $dispatcher = $this->container->get('event_dispatcher');
 
-        $event = new \App\AdminBundle\Event\FormEvent($form, $request);
+        $event = new \Symforce\AdminBundle\Event\FormEvent($form, $request);
         $dispatcher->dispatch('app.event.form', $event) ;
         if (null !== $event->getResponse()) {
             return $event->getResponse();
@@ -81,7 +81,7 @@ class LoanController extends BaseController {
 
         $dispatcher = $this->container->get('event_dispatcher');
 
-        $event = new \App\AdminBundle\Event\FormEvent($form, $request);
+        $event = new \Symforce\AdminBundle\Event\FormEvent($form, $request);
         $dispatcher->dispatch('app.event.form', $event) ;
         if (null !== $event->getResponse()) {
             return $event->getResponse();
@@ -122,7 +122,7 @@ class LoanController extends BaseController {
         ) ;
     }
 
-    private function createSearchFrom(\AppAdminCache\Loan\AdminLoan $admin, \App\WebBundle\Entity\UseOfFund $fund){
+    private function createSearchFrom(\AppAdminCache\Loan\AdminLoan $admin, \Symforce\PageBundle\Entity\UseOfFund $fund){
         $domain    = $admin->getDomain() ;
         $app_domain    = $admin->getAppDomain() ;
         $tr     = $this->container->get('translator');
@@ -163,7 +163,7 @@ class LoanController extends BaseController {
     }
 
 
-    private function createApplyFrom(\AppAdminCache\Loan\AdminLoan $admin, \App\WebBundle\Entity\UseOfFund $fund){
+    private function createApplyFrom(\AppAdminCache\Loan\AdminLoan $admin, \Symforce\PageBundle\Entity\UseOfFund $fund){
         $domain    = $admin->getDomain() ;
         $app_domain    = $admin->getAppDomain() ;
         $tr     = $this->container->get('translator');

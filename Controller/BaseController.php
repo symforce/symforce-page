@@ -1,6 +1,6 @@
 <?php
 
-namespace App\WebBundle\Controller;
+namespace Symforce\PageBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +39,7 @@ abstract class BaseController extends Controller {
 
     /**
      * @param $slug
-     * @return \App\AdminBundle\Entity\Page
+     * @return \Symforce\AdminBundle\Entity\Page
      */
     protected function getPageBySlug( $slug){
         return $this->getPageAdmin()->getRepository()->findOneBy( array('slug' => $slug ) ) ;

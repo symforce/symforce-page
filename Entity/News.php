@@ -1,10 +1,10 @@
 <?php
 
-namespace App\WebBundle\Entity;
+namespace Symforce\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\AdminBundle\Compiler\Annotation as Admin ;
+use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
@@ -57,7 +57,7 @@ class News
     
     
     /** 
-     * @ORM\OneToOne(targetEntity="App\AdminBundle\Entity\File")
+     * @ORM\OneToOne(targetEntity="Symforce\AdminBundle\Entity\File")
      * @Admin\Form(label="插图", type="image", max_size="1m", image_size="120x130", small_size="12x12" )
      */
     public $image ;
@@ -69,7 +69,7 @@ class News
     public $content ;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\App\UserBundle\Entity\User", cascade={"persist"} )
+     * @ORM\ManyToOne(targetEntity="\Symforce\UserBundle\Entity\User", cascade={"persist"} )
      * @Admin\Owner
      */
     public $user ;

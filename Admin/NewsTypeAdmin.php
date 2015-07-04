@@ -1,8 +1,8 @@
 <?php
 
-namespace App\WebBundle\Admin ;
+namespace Symforce\PageBundle\Admin ;
 
-abstract class NewsTypeAdmin extends \App\AdminBundle\Compiler\Cache\AdminCache {
+abstract class NewsTypeAdmin extends \Symforce\AdminBundle\Compiler\Cache\AdminCache {
  
     protected function configureObjectMenu11(\Knp\Menu\MenuItem $menu, $with_parent = false ) {
         parent::configureObjectMenu($menu, $with_parent) ;
@@ -70,7 +70,7 @@ abstract class NewsTypeAdmin extends \App\AdminBundle\Compiler\Cache\AdminCache 
             array_unshift($list, $news_type->top);
         }
         if( !$news_type ) {
-             $news_type = new \App\WebBundle\Entity\NewsType();
+             $news_type = new \Symforce\PageBundle\Entity\NewsType();
              $news_type->name  = $tag ;
              $this->getReflectionProperty('id')->setValue($news_type, $tag );
         } else if( !($news_type instanceof $this->class_name) ) {

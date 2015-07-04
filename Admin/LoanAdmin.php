@@ -1,7 +1,7 @@
 <?php
 
-namespace App\WebBundle\Admin ;
+namespace Symforce\PageBundle\Admin ;
 
-abstract class LoanAdmin extends \App\AdminBundle\Compiler\Cache\AdminCache {
+abstract class LoanAdmin extends \Symforce\AdminBundle\Compiler\Cache\AdminCache {
 
 }

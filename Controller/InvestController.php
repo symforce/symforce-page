@@ -1,6 +1,6 @@
 <?php
 
-namespace App\WebBundle\Controller;
+namespace Symforce\PageBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

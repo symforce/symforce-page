@@ -1,10 +1,10 @@
 <?php
 
-namespace App\WebBundle\Entity;
+namespace Symforce\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\AdminBundle\Compiler\Annotation as Admin ;
+use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
@@ -56,7 +56,7 @@ class NewsType
     public $allow_user_reply = false ;
     
     /** 
-     * @ORM\OneToOne(targetEntity="App\AdminBundle\Entity\Page", cascade={"remove", "persist" } )
+     * @ORM\OneToOne(targetEntity="Symforce\AdminBundle\Entity\Page", cascade={"remove", "persist" } )
      * @Admin\Page(label="新闻分类", path="blog", title="name" )
      * @Admin\Form("order_by")
      * @Admin\Form("meta_keywords")

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\WebBundle\Admin ;
+namespace Symforce\PageBundle\Admin ;
 
-abstract class NewsAdmin extends \App\AdminBundle\Compiler\Cache\AdminCache {
+abstract class NewsAdmin extends \Symforce\AdminBundle\Compiler\Cache\AdminCache {
     
     protected function configureObjectMenu11(\Knp\Menu\MenuItem $menu, $with_parent = false ) {
         parent::configureObjectMenu($menu, $with_parent);

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\WebBundle\Entity;
+namespace Symforce\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\AdminBundle\Compiler\Annotation as Admin ;
+use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity

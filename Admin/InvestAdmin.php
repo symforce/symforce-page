@@ -1,7 +1,7 @@
 <?php
 
-namespace App\WebBundle\Admin ;
+namespace Symforce\PageBundle\Admin ;
 
-abstract class InvestAdmin extends \App\AdminBundle\Compiler\Cache\AdminCache {
+abstract class InvestAdmin extends \Symforce\AdminBundle\Compiler\Cache\AdminCache {
 
 }

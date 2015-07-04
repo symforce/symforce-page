@@ -1,6 +1,6 @@
 <?php
 
-namespace App\WebBundle\DependencyInjection;
+namespace Symforce\PageBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;

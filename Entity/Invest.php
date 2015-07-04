@@ -1,10 +1,10 @@
 <?php
 
-namespace App\WebBundle\Entity;
+namespace Symforce\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\AdminBundle\Compiler\Annotation as Admin ;
+use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
@@ -64,7 +64,7 @@ class Invest
     public $content ;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\App\UserBundle\Entity\User", cascade={"persist"} )
+     * @ORM\ManyToOne(targetEntity="\Symforce\UserBundle\Entity\User", cascade={"persist"} )
      * @Admin\Owner
      * @Admin\Form(label="投资人", auth=true)
      * @Admin\Table()
@@ -119,12 +119,12 @@ class Invest
          $this->status = $value ;
     }
     
-    public function setUser(\App\UserBundle\Entity\User  $user) {
+    public function setUser(\Symforce\UserBundle\Entity\User  $user) {
         $this->user = $user ;
     }
     
     /**
-     * @return \App\UserBundle\Entity\User 
+     * @return \Symforce\UserBundle\Entity\User 
      */
     public function getUser() {
         return $this->user ;

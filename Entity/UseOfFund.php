@@ -1,10 +1,10 @@
 <?php
 
-namespace App\WebBundle\Entity;
+namespace Symforce\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\AdminBundle\Compiler\Annotation as Admin ;
+use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 
 /**
@@ -39,7 +39,7 @@ class UseOfFund {
     public $slug ;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\AdminBundle\Entity\Page", cascade={"remove", "persist" } )
+     * @ORM\OneToOne(targetEntity="Symforce\AdminBundle\Entity\Page", cascade={"remove", "persist" } )
      * @Admin\Page(label="资金用途", path="fund", title="name" )
      * @Admin\Form("image")
      * @Admin\Form("order_by")
