@@ -8,7 +8,7 @@ use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="app_faq")
+ * @ORM\Table(name="sf_faq")
  * @Admin\Entity("faq", label="FAQ", icon="faq" , dashboard="public")
  * 
  */

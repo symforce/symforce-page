@@ -8,7 +8,7 @@ use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="app_blog_type")
+ * @ORM\Table(name="sf_blog_type")
  * @Admin\Entity("news_type", label="新闻分类", icon="rss", menu="sys", position=4, dashboard=true, groups={
  *      "default": "默认",
  *      "seo":"SEO"

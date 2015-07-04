@@ -9,7 +9,7 @@ use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="app_use_of_funds")
+ * @ORM\Table(name="sf_use_of_funds")
  * @Admin\Entity("use_of_funds", label="资金用途", icon="rss", dashboard="right" )
  */
 class UseOfFund {

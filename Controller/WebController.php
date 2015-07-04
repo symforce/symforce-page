@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class WebController extends BaseController {
  
     /**
-     * @Route("/", name="app_web_home")
+     * @Route("/", name="sf_web_home")
      * @Template()
      */
     public function indexAction(Request $request) {

@@ -31,7 +31,7 @@ class LoanController extends BaseController {
         $dispatcher = $this->container->get('event_dispatcher');
 
         $event = new \Symforce\AdminBundle\Event\FormEvent($form, $request);
-        $dispatcher->dispatch('app.event.form', $event) ;
+        $dispatcher->dispatch('sf.event.form', $event) ;
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
@@ -82,7 +82,7 @@ class LoanController extends BaseController {
         $dispatcher = $this->container->get('event_dispatcher');
 
         $event = new \Symforce\AdminBundle\Event\FormEvent($form, $request);
-        $dispatcher->dispatch('app.event.form', $event) ;
+        $dispatcher->dispatch('sf.event.form', $event) ;
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
@@ -124,7 +124,7 @@ class LoanController extends BaseController {
 
     private function createSearchFrom(\AppAdminCache\Loan\AdminLoan $admin, \Symforce\PageBundle\Entity\UseOfFund $fund){
         $domain    = $admin->getDomain() ;
-        $app_domain    = $admin->getAppDomain() ;
+        $sf_domain    = $admin->getAppDomain() ;
         $tr     = $this->container->get('translator');
 
         $constraints   = array() ;
@@ -165,7 +165,7 @@ class LoanController extends BaseController {
 
     private function createApplyFrom(\AppAdminCache\Loan\AdminLoan $admin, \Symforce\PageBundle\Entity\UseOfFund $fund){
         $domain    = $admin->getDomain() ;
-        $app_domain    = $admin->getAppDomain() ;
+        $sf_domain    = $admin->getAppDomain() ;
         $tr     = $this->container->get('translator');
 
         $constraints   = array() ;

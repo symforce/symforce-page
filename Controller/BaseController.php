@@ -34,7 +34,7 @@ abstract class BaseController extends Controller {
      * @return  \AppAdminCache\AppPage\AdminAppPage
      */
     protected function getPageAdmin(){
-        return $this->container->get('sf.admin.loader')->getAdminByName('app_page') ;
+        return $this->container->get('sf.admin.loader')->getAdminByName('sf_page') ;
     }
 
     /**

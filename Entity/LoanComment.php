@@ -8,7 +8,7 @@ use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="app_loan_comments")
+ * @ORM\Table(name="sf_loan_comments")
  * @Admin\Entity("loan_comment", label="贷款评论", icon="rss" )
  * 
  */

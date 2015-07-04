@@ -8,7 +8,7 @@ use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="app_mortgage_type")
+ * @ORM\Table(name="sf_mortgage_type")
  * @Admin\Entity("mortgage_type", label="抵押物类别", icon="rss", dashboard="right" )
  */
 class MortgageType {

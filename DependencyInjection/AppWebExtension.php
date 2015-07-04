@@ -17,6 +17,6 @@ class AppWebExtension extends Extension
 
     public function getAlias()
     {
-        return 'app_web';
+        return 'sf_web';
     }
 }

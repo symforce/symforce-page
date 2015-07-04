@@ -8,7 +8,7 @@ use Symforce\AdminBundle\Compiler\Annotation as Admin ;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="app_invest")
+ * @ORM\Table(name="sf_invest")
  * @Admin\Entity("invest", label="投资请求", icon="bars", dashboard="right", groups = {
  *      "trust": "信托信息" ,
  *      "project": "项目信息" ,
