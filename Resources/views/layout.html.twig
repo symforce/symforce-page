@@ -1,4 +1,4 @@
-{% set app_domain = app_param('app.admin.domain') %}
+{% set app_domain = app_param('symforce.admin.domain') %}
 {% set app_version = app_param('app.version') %}
 {% set page_body_id = page_body_id is defined ? page_body_id : 'app_html_body' %}
 {% set uri = app.request.attributes.get('_route') %}
@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name='viewport' content='width=1190' />
-    <title>{% block app_page_title %}{{ 'app.admin.brand' | trans({}, app_domain) }}{% endblock %}</title>
+    <title>{% block app_page_title %}{{ 'symforce.admin.brand' | trans({}, app_domain) }}{% endblock %}</title>
     <meta name="description" content="{% block app_page_meta_description %}{% endblock %}">
     <meta name="keywords" content="{% block app_page_meta_keywords %}{% endblock %}" />
     <meta name="author" content="{% block app_page_head_author %}{% endblock %}">
